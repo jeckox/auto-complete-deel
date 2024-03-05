@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import type { UseDebounceProps } from "../types";
+import type { UseDebounceProps, UseDebounceReturn } from "../types";
 
-export const useDebounce = ({value, delay}: UseDebounceProps) => {
+export const useDebounce = ({value, delay}: UseDebounceProps): UseDebounceReturn => {
     const [debouncedValue, setDebouncedValue] = useState("");
     const timerRef = useRef<NodeJS.Timeout | undefined>();
 
@@ -13,5 +13,5 @@ export const useDebounce = ({value, delay}: UseDebounceProps) => {
         };
     }, [value, delay]);
 
-    return debouncedValue;
+    return { debouncedValue };
 };

@@ -10,15 +10,19 @@ export const Autocomplete = ({options, isLoading, onInputChange, onSelectedOptio
     searchTerm,
     onInputChangeHandler,
     onOptionClickHandler,
-    showOptions
+    showOptions,
+    ref,
+    onFocusHandler
   } = useAutocomplete({onInputChange, onSelectedOption, isLoading, options});
+
+  
   return (
-    <div className='Autocomplete-container'>
-      <input className='Autocomplete-input' type="text" onChange={onInputChangeHandler} value={value} placeholder={placeholder} />
+    <div ref={ref} className='Autocomplete-container'>
+      <input onFocus={onFocusHandler} className='Autocomplete-input' type="text" onChange={onInputChangeHandler} value={value} placeholder={placeholder} />
       {showOptions && <div className='Autocomplete-listContainer'>
-        <ul className='Autocomplete-list'>
+        <ul className='Autocomplete-list' >
           {options.map(option => (
-            <li className='Autocomplete-listItem' onClick={() => onOptionClickHandler(option)} key={option.code}>+{option.phone} ({option.code}) <HighlightText text={option.label} highlight={searchTerm} /> </li>
+            <li tabIndex={0} className='Autocomplete-listItem' onClick={() => onOptionClickHandler(option)} key={option.code}>+{option.phone} ({option.code}) <HighlightText text={option.label} highlight={searchTerm} /> </li>
           ))}
         </ul>
       </div>}

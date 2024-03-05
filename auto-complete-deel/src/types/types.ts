@@ -27,3 +27,23 @@ export interface UseAutocompleteProps {
     isLoading: boolean;
     options: Country[];
 }
+
+export interface UseAutocompleteReturn {
+    value: string;
+    setShouldUpdate: (shouldUpdate: boolean) => void;
+    showOptions: boolean;
+    setValue: (value: string) => void;
+    searchTerm: string;
+    onInputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onOptionClickHandler: (option: Country) => void;
+    onFocusHandler: () => void;
+    ref: React.RefObject<HTMLDivElement>;
+}
+
+export interface UseDebounceReturn {
+    debouncedValue: string;
+}
+
+export interface SelectedOptionProps {
+    selectedOption: Country;
+}
