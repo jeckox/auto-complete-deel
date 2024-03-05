@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDebounce } from '../hooks';
+import type { AutocompleteProps } from '../types';
 
-export const Autocomplete = () => {
-  const [value, setValue] = React.useState('');
+export const Autocomplete = ({options, isLoading, onInputChange} : AutocompleteProps) => {
+  const [value, setValue] = React.useState<string>('');
   const val = useDebounce(value, 300);
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  useEffect(() => {
+    onInputChange(val);
+  }, [val, onInputChange]);
+
+  const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }
+  };
+
+
   return (
     <div>
-      <input type="text" onChange={onInputChange} value={value}/>
-      {val !=="" && <div>
+      <input type="text" onChange={onInputChangeHandler} value={value}/>
+      {!isLoading && <div>
         <ul>
-          <li>{val}</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
+          {options.map(option => (
+            <li key={option.code}>{option.label} - {option.phone}</li>
+          ))}
         </ul>
       </div>}
 
